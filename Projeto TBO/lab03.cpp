@@ -27,7 +27,7 @@ int main() {
   Filmes filme;
   
   listaCinema cine;
-  cine.lerArquivo("C:/Users/xtron/Desktop/projetoBusca/cinemas.txt");
+  cine.lerArquivo("C:/Users/xtron/Desktop/GithubProjects/Projeto TBO/cinemas.txt");
   
 
   int op = -1;
@@ -352,7 +352,7 @@ int main() {
                 cout << "Digite o Genero: " << endl; 
                 cin >> genero_tipo;
                 if(genero_tipo != "-x-")
-                  substringGeneroTipo += genero_tipo + ";;"; 
+                  substringGeneroTipo = genero_tipo; 
               }
 
               cout << "1 - Confirma " << endl;

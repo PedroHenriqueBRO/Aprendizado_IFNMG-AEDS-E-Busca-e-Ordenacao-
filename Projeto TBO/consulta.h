@@ -63,7 +63,7 @@ vector<Filme> getVector(){
     return listafiltrada;
   }
 
-  static bool buscaSubstring(const string &str, const string &substr) {
+   static bool buscaSubstring(const string &str, const string &substr) {
     size_t found = str.find(substr); // Procura a substring dentro da string
 
     if (found != string::npos) {
@@ -183,23 +183,33 @@ vector<Filme> getVector(){
 
   static vector<Cinema> filtraGenero(string genero, const vector<Cinema> &cinemas, const vector<Filme> &filmes) {
     vector<Cinema> cinemasFiltrados;
-
+  int cont;
     for (const Cinema &cine : cinemas) {
+       
+       cout<<"------"<<endl;
       listaFilmeExibicao listaFilmesExib = cine.filmes_exibicao;
       bool filmeEncontrado = false;
       for (NoFilme *atualFilme = listaFilmesExib.getPrimeiro(); atualFilme;
            atualFilme = atualFilme->proximo) {
         const Filme &filme = getInformation(atualFilme->idFilme, filmes);
+        
 
-        if (filme.tconst != "null" && buscaSubstring_(genero, filme)) {
+        if (filme.tconst!="null"&&buscaSubstring(filme.genres,genero)==true) {
           filmeEncontrado = true;
+          cout<<filme.genres<<endl;
+          cont++;
           break;
         }
+        
+        
       }
       if (filmeEncontrado) {
         cinemasFiltrados.push_back(cine);
+       
       }
+      cout<<"-------"<<endl;
     }
+    cout<<cont<<endl;
     return cinemasFiltrados;
   }
 
@@ -335,19 +345,5 @@ private:
                 (pos2.y - pos1.y) * (pos2.y - pos1.y));
   }
 
-static bool buscaSubstring_(string genero, Filme filme) {
-    size_t pos = 0;
-    string token;
-    string linha = genero;
-    transform(linha.begin(), linha.end(), linha.begin(), ::tolower); // Converter linha para minúsculas
-    while ((pos = linha.find(';')) != string::npos) {
-      token = linha.substr(0, pos);
-      linha.erase(0, pos + 1);
-      transform(token.begin(), token.end(), token.begin(), ::tolower); // Converter token para minúsculas
-      if (buscaSubstring(filme.genres, token) == true) {
-        return true;
-      }
-    }
-    return false;
-}
+
 };

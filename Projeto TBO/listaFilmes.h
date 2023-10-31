@@ -27,7 +27,7 @@ class Filmes {
 public:
     vector<Filme> filmes;
 
-  Filmes() { inserirFilmes("C:/Users/xtron/Desktop/projetoBusca/filmesCrop.txt"); }
+  Filmes() { inserirFilmes("C:/Users/xtron/Desktop/GithubProjects/Projeto TBO/filmesCrop.txt"); }
 
   vector<Filme> getFilmeList(){return filmes;};
   
