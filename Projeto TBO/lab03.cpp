@@ -36,14 +36,6 @@ int main() {
   vector<Cinema> c = cine.getListaCinemas();
   vector<Filme> f = filme.getFilmeList(); 
 
-
-  Filme fTeste = f[84];
-  cout << f.size() << endl;
-
-
-
-  
-
   system("pause");
 
   int dadoA,dadoB;
@@ -133,6 +125,7 @@ int main() {
                 end2 = chrono::high_resolution_clock::now();
                 duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
                 cout << "Tempo de execucao: " << duration2.count() << " milissegundos" << endl;
+                system("pause");
               }
 
 
@@ -162,6 +155,7 @@ int main() {
                 end2 = chrono::high_resolution_clock::now();
                 duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
                 cout << "Tempo de execucao: " << duration2.count() << " milissegundos" << endl;
+                system("pause");
                 }
                     
             break;
@@ -184,6 +178,7 @@ int main() {
               end2 = chrono::high_resolution_clock::now();
                 duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
                 cout << "Tempo de execucao: " << duration2.count() << " milissegundos" << endl;
+                system("pause");
               }
             break;
 
@@ -205,6 +200,7 @@ int main() {
                 end2 = chrono::high_resolution_clock::now();
                 duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
                 cout << "Tempo de execucao: " << duration2.count() << " milissegundos" << endl;
+                system("pause");
                 }
             break;
 
@@ -351,9 +347,8 @@ int main() {
               while(genero_tipo != "-x-"){
                 cout << "Digite o Genero: " << endl; 
                 cin >> genero_tipo;
-                if(genero_tipo != "-x-")
-                  substringGeneroTipo = genero_tipo; 
-              }
+                 
+              
 
               cout << "1 - Confirma " << endl;
               cout << "O - Retorna ao menu anterior" << endl;
@@ -362,16 +357,17 @@ int main() {
 
               opcaoConfirma == 1 ? confirmacao = true : confirmacao = false;
 
-              if(confirmacao){
+              if(confirmacao&&genero_tipo!="-x-"){
 
                 start2 = chrono::high_resolution_clock::now();
 
-                c = consulta::filtraGenero(substringGeneroTipo, c, f);
+                c = consulta::filtraGenero(genero_tipo, c, f);
 
                 end2 = chrono::high_resolution_clock::now();
                 duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
                 cout << "Tempo de execucao: " << duration2.count() << " milissegundos" << endl;
                 system("pause");
+              }
               }
                 
               

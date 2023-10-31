@@ -24,17 +24,21 @@ vector<Filme> getVector(){
 }
   static vector<Filme> verificaFilmesAnoEspec(int ano, vector<Filme> filmes) {
     vector<Filme> listafiltrada;
+    int cont=0;
 
     for (const Filme &filme : filmes) {
       if (filme.startYear == ano) {
+        cont ++;
         listafiltrada.push_back(filme);
       }
     }
+    cout<<"Filmes encontrados = "<<cont<<endl;
     return listafiltrada;
   }
   static vector<Filme> verificaFilmesAnoEspec(int anostart, int anoend,
                                               vector<Filme> filmes) {
     vector<Filme> listafiltrada;
+    int cont=0;
     if (anoend < anostart) {
       int aux;
       aux = anostart;
@@ -44,22 +48,27 @@ vector<Filme> getVector(){
     for (const Filme &filme : filmes) {
       if (filme.startYear >= anostart && filme.startYear <= anoend) {
         listafiltrada.push_back(filme);
+        cont++;
       }
     }
+    cout<<"Filmes encontrados = "<<cont<<endl;
     return listafiltrada;
   }
 
   static vector<Filme> verificaduracao(int minMinutes, int maxMinutes,
                                        vector<Filme> filmes) {
     vector<Filme> listafiltrada;
+    int cont=0;
 
     for (const Filme &filme : filmes) {
 
       if (filme.runtimeMinutes != 0 && (filme.runtimeMinutes >= minMinutes &&
                                         filme.runtimeMinutes <= maxMinutes)) {
         listafiltrada.push_back(filme);
+        cont++;
       }
     }
+    cout<<"Filmes encontrados = "<<cont<<endl;
     return listafiltrada;
   }
 
@@ -74,49 +83,50 @@ vector<Filme> getVector(){
   }
 
   static vector<Filme> verificaGenero(string genero, vector<Filme> filmes) {
-    
-
     vector<Filme> listafiltrada;
+    int cont=0;
 
     for (const Filme &filme : filmes) {
-      size_t pos = 0;
-      string token;
-      string linha = genero;
-      while ((pos = linha.find(';')) != string::npos) {
-        token = linha.substr(0, pos);
-        linha.erase(0, pos + 1);
-        if (buscaSubstring(filme.genres, token) == true) {
+        if (buscaSubstring(filme.genres, genero) == true) {
           listafiltrada.push_back(filme);
+          cont++;
         }
-      }
+      
     }
+    cout<<"Filmes encontrados = "<<cont<<endl;
+
     return listafiltrada;
   }
 
   static vector<Filme> verificaTipo(string tipo, vector<Filme> filmes) {
     vector<Filme> listafiltrada; 
+    int cont=0;
     for (const Filme &filme : filmes) {
       if (buscaSubstring(tipo, filme.titleType) == true) {
         listafiltrada.push_back(filme);
+        cont++;
       }
     }
+    cout<<"Filmes encontrados = "<<cont<<endl;
     return listafiltrada;
   }
 
   static vector<Cinema> filtraPrecoMax(float precoMax, vector<Cinema> cinemas) {
     vector<Cinema> cinemasFiltrados;
-
+    int cont=0;
     for (const Cinema &cine : cinemas) {
       if (cine.preco_ingresso <= precoMax) {
         cinemasFiltrados.push_back(cine);
+        cont++;
       }
     }
+    cout<<"Cinemas encontrados = "<<cont<<endl;
     return cinemasFiltrados;
   }
 
   static vector<Cinema> filtraPorAno(int ano, const vector<Cinema> &cinemas, const vector<Filme> &filmes) {
     vector<Cinema> cinemasFiltrados;
-
+int cont=0;
     for (const Cinema &cine : cinemas) {
         listaFilmeExibicao listaFilmesExib = cine.filmes_exibicao;
         bool filmeEncontrado = false;
@@ -127,6 +137,7 @@ vector<Filme> getVector(){
 
             if (filme.tconst != "null" && filme.startYear == ano) {
                 filmeEncontrado = true;
+                cont++;
                 break;
             }
         }
@@ -135,13 +146,13 @@ vector<Filme> getVector(){
             cinemasFiltrados.push_back(cine);
         }
     }
-
+   cout<<"Cinemas encontrados = "<<cont<<endl;
     return cinemasFiltrados;
 }
   
   static vector<Cinema> filtraPorAno(int anoInicial, int anoFinal, const vector<Cinema> &cinemas, const vector<Filme> &filmes) {
     vector<Cinema> cinemasFiltrados;
-
+    int cont=0;
     for (const Cinema &cine : cinemas) {
         listaFilmeExibicao listaFilmesExib = cine.filmes_exibicao;
         bool filmeEncontrado = false;
@@ -152,6 +163,7 @@ vector<Filme> getVector(){
 
             if (filme.tconst != "null" && filme.startYear >= anoInicial && filme.startYear <= anoFinal) {
                 filmeEncontrado = true;
+                cont++;
                 break;
             }
         }
@@ -160,7 +172,7 @@ vector<Filme> getVector(){
             cinemasFiltrados.push_back(cine);
         }
     }
-
+    cout<<"Cinemas encontrados = "<<cont<<endl;
     return cinemasFiltrados;
 }
 
@@ -168,25 +180,25 @@ vector<Filme> getVector(){
   filtraCinemasPorDistancia(const Coordenada &coord, double distanciaMax,
                             const vector<Cinema> &cinemas) {
     vector<Cinema> cinemasFiltrados;
-
+    int cont=0;
     for (const Cinema &cine : cinemas) {
       double distanciaA =
           distanciaPontos(coord, {cine.coordenada_x, cine.coordenada_y});
 
       if (distanciaA <= distanciaMax) {
+        cont++;
         cinemasFiltrados.push_back(cine);
       }
     }
-
+    cout<<"Cinemas encontrados = "<<cont<<endl;
     return cinemasFiltrados;
   }
 
   static vector<Cinema> filtraGenero(string genero, const vector<Cinema> &cinemas, const vector<Filme> &filmes) {
     vector<Cinema> cinemasFiltrados;
-  int cont;
+  int cont=0;
     for (const Cinema &cine : cinemas) {
        
-       cout<<"------"<<endl;
       listaFilmeExibicao listaFilmesExib = cine.filmes_exibicao;
       bool filmeEncontrado = false;
       for (NoFilme *atualFilme = listaFilmesExib.getPrimeiro(); atualFilme;
@@ -196,7 +208,6 @@ vector<Filme> getVector(){
 
         if (filme.tconst!="null"&&buscaSubstring(filme.genres,genero)==true) {
           filmeEncontrado = true;
-          cout<<filme.genres<<endl;
           cont++;
           break;
         }
@@ -207,14 +218,15 @@ vector<Filme> getVector(){
         cinemasFiltrados.push_back(cine);
        
       }
-      cout<<"-------"<<endl;
+      
     }
-    cout<<cont<<endl;
+    cout<<"Cinemas encontrados = "<<cont<<endl;
     return cinemasFiltrados;
   }
 
   static vector<Cinema> filtraPorDuracao(int minutosMin, int minutosMax, const vector<Cinema> &cinemas, const vector<Filme> &filmes) {
     vector<Cinema> cinemasFiltrados;
+    int cont=0;
     
 
     for (const Cinema &cine : cinemas) {
@@ -227,6 +239,7 @@ vector<Filme> getVector(){
 
         if (filme.tconst != "null" && (filme.runtimeMinutes <= minutosMax &&
                                        filme.runtimeMinutes >= minutosMin)) {
+          cont++;
           filmeEncontrado = true;
           break;
         }
@@ -236,13 +249,14 @@ vector<Filme> getVector(){
         cinemasFiltrados.push_back(cine);
       }
     }
+    cout<<"Cinemas encontrados = "<<cont<<endl;
 
     return cinemasFiltrados;
   }
 
   static vector<Cinema> filtraTipo(string tipo, const vector<Cinema> &cinemas, const vector<Filme> &filmes) {
     vector<Cinema> cinemasFiltrados;
-    
+    int cont=0;
     for (const Cinema &cine : cinemas) {
       listaFilmeExibicao listaFilmesExib = cine.filmes_exibicao;
       bool filmeEncontrado = false;
@@ -252,6 +266,7 @@ vector<Filme> getVector(){
 
         if (filme.tconst != "null" && buscaSubstring(tipo, filme.titleType)) {
           filmeEncontrado = true;
+          cont++;
           break;
         }
       }
@@ -260,13 +275,14 @@ vector<Filme> getVector(){
         cinemasFiltrados.push_back(cine);
       }
     }
-
+    cout<<"Cinemas encontrados = "<<cont<<endl;
     return cinemasFiltrados;
   }
 
 static int imprimeCinemas(const vector<Cinema> &cinemas) {
   int cont = 0; 
   for (const Cinema &cine : cinemas) {
+    cont++;
     cout << "Cinema ID: " << cine.cinema_id << endl;
     cout << "Nome do Cinema: " << cine.nome_do_cinema << endl;
     cout << "Coordenada X: " << cine.coordenada_x << endl;
@@ -279,14 +295,15 @@ static int imprimeCinemas(const vector<Cinema> &cinemas) {
 
     cout << endl;
     cout << endl;
-    cont++;
+    
   }
   return cont;
 }
 
   static int imprimeFilmes(vector<Filme> listafiltrada) {
-    int contador = 1;
+    int contador = 0;
     for (const Filme &filme : listafiltrada) {
+      contador++;
       cout << "[  " << contador << "  ]" << endl;
       cout << "Titulo: " << filme.primaryTitle << endl;
       cout << "Tipo: " << filme.titleType << endl;
@@ -297,7 +314,6 @@ static int imprimeCinemas(const vector<Cinema> &cinemas) {
       cout << "Duracao: " << filme.runtimeMinutes << " minutos" << endl;
       cout << "Generos: " << filme.genres << endl;
       cout << "--------------------------------------" << endl;
-      contador++;
     }
     return contador;
   }
