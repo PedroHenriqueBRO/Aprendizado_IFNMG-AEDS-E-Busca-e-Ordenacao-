@@ -5,6 +5,13 @@
 using namespace std;
 void BestResult(vector<vector<int>> binarios, int maxpizza, int matrizpizzatempo[][2], int contpizza)
 {
+    auto start = chrono::high_resolution_clock::now();
+
+  auto start2 = chrono::high_resolution_clock::now();
+
+  
+  auto end2 = chrono::high_resolution_clock::now();
+  auto duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
     int best = 0;
     int matriz[(1 << contpizza)][2];
     for (int i = 0; i < (1 << contpizza); i++)
@@ -31,6 +38,13 @@ void BestResult(vector<vector<int>> binarios, int maxpizza, int matrizpizzatempo
         }
     }
     cout << best << " min" << endl;
+    auto end = chrono::high_resolution_clock::now();
+
+  // Calcular a duração da execução
+  auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+
+  // Imprimir o tempo de execução em milissegundos
+  cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
 }
 void geraBinarios(int contpizza, vector<vector<int>> binarios, int maxpizza, int matripizzatempo[][2])
 {
@@ -50,13 +64,7 @@ void geraBinarios(int contpizza, vector<vector<int>> binarios, int maxpizza, int
 
 int main()
 {
-auto start = chrono::high_resolution_clock::now();
 
-  auto start2 = chrono::high_resolution_clock::now();
-
-  
-  auto end2 = chrono::high_resolution_clock::now();
-  auto duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
  
     int maxpizza;
 
@@ -83,13 +91,4 @@ auto start = chrono::high_resolution_clock::now();
         }
         geraBinarios(contpizza, binarios, maxpizza, matrizpizzatempo);
     }
-// Finalizar a contagem de tempo
-  auto end = chrono::high_resolution_clock::now();
-
-  // Calcular a duração da execução
-  auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
-
-  // Imprimir o tempo de execução em milissegundos
-  cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
-
 }
