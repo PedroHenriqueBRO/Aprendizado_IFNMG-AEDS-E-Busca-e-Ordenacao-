@@ -47,7 +47,7 @@ void BestResult(vector<vector<int>> binarios, int maxpizza, int matrizpizzatempo
     // Imprimir o tempo de execução em milissegundos
     cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
 }
-void geraBinarios(int contpizza, vector<vector<int>> binarios, int maxpizza, int matripizzatempo[][2])
+void geraBinarios(int contpizza, int maxpizza, int matripizzatempo[][2])
 {
     auto start = chrono::high_resolution_clock::now();
 
@@ -55,7 +55,7 @@ void geraBinarios(int contpizza, vector<vector<int>> binarios, int maxpizza, int
 
     auto end2 = chrono::high_resolution_clock::now();
     auto duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
-
+    vector<vector<int>> binarios;
     for (int i = 0; i < (1 << contpizza); i++)
     {
         vector<int> digitsbin;
@@ -84,11 +84,8 @@ int main()
 
     int contpizza;
 
-    vector<int> resultados;
-
     for (;;)
     {
-        vector<vector<int>> binarios;
         cin >> contpizza;
         if (contpizza == 0)
         {
@@ -103,6 +100,6 @@ int main()
                 cin >> matrizpizzatempo[i][j];
             }
         }
-        geraBinarios(contpizza, binarios, maxpizza, matrizpizzatempo);
+        geraBinarios(contpizza, maxpizza, matrizpizzatempo);
     }
 }
