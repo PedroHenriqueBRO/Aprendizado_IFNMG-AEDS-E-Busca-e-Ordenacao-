@@ -3,6 +3,7 @@
 #include <vector>
 #include <chrono>
 using namespace std;
+
 void bestResult(int contteste, int maxpeso, vector<vector<int>> binarios, int matrizteste[][2])
 {
     auto start = chrono::high_resolution_clock::now();
@@ -11,9 +12,6 @@ void bestResult(int contteste, int maxpeso, vector<vector<int>> binarios, int ma
 
     auto end2 = chrono::high_resolution_clock::now();
     auto duration2 = chrono::duration_cast<chrono::milliseconds>(end2 - start2);
-
-    int best = 0;
-    int matriz[binarios.size()][2];
     for (unsigned i = 0; i < binarios.size(); i++)
     {
         int somapeso = 0;
@@ -27,32 +25,31 @@ void bestResult(int contteste, int maxpeso, vector<vector<int>> binarios, int ma
                 somavalor = somavalor + matrizteste[j][1];
             }
         }
-        matriz[i][0] = somapeso;
-        matriz[i][1] = somavalor;
+        binarios[i][0]=somapeso;
+        binarios[i][1]=somavalor;
     }
-    int cont;
-    for (unsigned i = 0; i < binarios.size(); i++)
+    auto end = chrono::high_resolution_clock::now();
+    // Calcular a duração da execução
+    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+    // Imprimir o tempo de execução em milissegundos
+    cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
+    int contaux=0;
+    int best=0;
+     for (int i= 0; i < binarios.size(); i++)
     {
-        if (matriz[i][0] <= maxpeso && matriz[i][1] > best)
+        if (binarios[i][0] <= maxpeso && binarios[i][1] > best)
         {
-            cont = i;
-            best = matriz[i][1];
+            contaux = i;
+            best = binarios[i][1];
         }
     }
     cout << "--------" << endl;
     cout << "Maior valor:" << best << endl;
-    cout << "Peso:" << matriz[cont][0] << endl;
+    cout << "Peso:" << binarios[contaux][0] << endl;
     cout << "--------" << endl;
-    auto end = chrono::high_resolution_clock::now();
-
-    // Calcular a duração da execução
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
-
-    // Imprimir o tempo de execução em milissegundos
-    cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
 }
 
-void geraBinarios(int conttestes, int maxpeso, int matrizteste[][2])
+vector<vector<int>> geraBinarios(int conttestes, int maxpeso, int matrizteste[][2])
 {
     auto start = chrono::high_resolution_clock::now();
 
@@ -102,22 +99,24 @@ void geraBinarios(int conttestes, int maxpeso, int matrizteste[][2])
 
     // Imprimir o tempo de execução em milissegundos
     cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
-    bestResult(conttestes, maxpeso, binarios, matrizteste);
+    return binarios;
 }
 int main()
 {
     // Código para resolver o problema da mochila com solução ineficiente mas usando uma lógica muito bacana, usando um gerador de binarios em base a
-    // quantidade de casos de teste para achar a melhor solução usando zeros e uns , ineficiente pois resolve casos de até aproximadamente N=17.
+    // quantidade de casos de teste para achar a melhor solução usando zeros e uns , ineficiente pois a partir de 23 casos o tempo de execução fica muito alto.
     int quanttestes;
     int maxpeso;
     cin >> quanttestes;
     cin >> maxpeso;
     int matriztestes[quanttestes][2];
-
+    vector<vector<int>> binarios;
     for (int i = 0; i < quanttestes; i++)
     {
         cin >> matriztestes[i][0];
         cin >> matriztestes[i][1];
     }
-    geraBinarios(quanttestes, maxpeso, matriztestes);
+    binarios=geraBinarios(quanttestes, maxpeso, matriztestes);
+    bestResult(quanttestes,maxpeso,binarios,matriztestes);
+    return 0;
 }
