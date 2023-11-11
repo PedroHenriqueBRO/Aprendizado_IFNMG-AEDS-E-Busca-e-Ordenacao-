@@ -6,7 +6,7 @@
 #include "tries.h"
 #include <chrono>
 using namespace std;
-void cipherceasar(int key, vector<string> &palavras)
+void cipherceasar(int key, vector<string> palavras)
 {
   auto start = chrono::high_resolution_clock::now();
 
@@ -35,7 +35,6 @@ void cipherceasar(int key, vector<string> &palavras)
   }
   cout << endl;
   auto end = chrono::high_resolution_clock::now();
-
   // Calcular a duração da execução
   auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
 
@@ -43,7 +42,7 @@ void cipherceasar(int key, vector<string> &palavras)
   cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
 }
 
-void cipherbreakkey(int key, vector<string> &palavras)
+void cipherbreakkey(int key, vector<string> palavras)
 {
   auto start = chrono::high_resolution_clock::now();
 
@@ -135,7 +134,6 @@ void cipherbreakwithoutkey(vector<string> palavras, Trie arvore, int aux)
   cout << endl;
   cout << "Sua chave de criptografia foi: " << indice + 1 << endl;
   auto end = chrono::high_resolution_clock::now();
-
   // Calcular a duração da execução
   auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
 
@@ -157,7 +155,7 @@ int main()
   arvorepalavras.insereDoArquivo("C:/Users/xtron/Desktop/GithubProjects/projeto2/pt_BR.dic");
 
   int key;
-  
+
   string palavra;
   int cont = 0;
   vector<string> palavras;
@@ -176,7 +174,7 @@ int main()
     switch (op2)
     {
     case 1:
-     
+
       cout << "Digite o que sera criptografado :" << endl;
       cin.ignore();
 
@@ -200,7 +198,6 @@ int main()
       cin >> key;
 
       cipherceasar(key, palavras);
-
       palavras.clear();
       system("pause || cls");
       break;
@@ -225,7 +222,7 @@ int main()
       cout << "Digite a chave de criptografia" << endl;
 
       cin >> key;
-      cipherbreakkey(key,palavras);
+      cipherbreakkey(key, palavras);
       palavras.clear();
       system("pause || cls");
       break;
@@ -247,12 +244,13 @@ int main()
         }
         palavra += toupper(c);
       }
-      cipherbreakwithoutkey(palavras,arvorepalavras,cont);
+      cipherbreakwithoutkey(palavras, arvorepalavras, cont);
+      palavras.clear();
       system("pause || cls");
       break;
 
     case 4:
-      op=4;
+      op = 4;
       break;
     }
   }
