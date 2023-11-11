@@ -136,7 +136,7 @@ void cipherbreakwithoutkey(vector<string> palavras, Trie arvore, int aux)
   auto end = chrono::high_resolution_clock::now();
   // Calcular a duração da execução
   auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
-
+  
   // Imprimir o tempo de execução em milissegundos
   cout << "Tempo de execucao: " << duration.count() << " milissegundos" << endl;
 }
@@ -247,6 +247,7 @@ int main()
       cipherbreakwithoutkey(palavras, arvorepalavras, cont);
       palavras.clear();
       system("pause || cls");
+      cont=0;
       break;
 
     case 4:
